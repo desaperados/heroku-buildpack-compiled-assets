@@ -8,6 +8,6 @@ app_root = Pathname.new(ARGV.first)
 archive_url = File.open(app_root.join("BUILD")) {|f| f.readline}
 archive_path = app_root.join("tmp", File.basename(archive_url))
 
-`set -o pipefail; curl --fail --retry 3 --retry-delay 1 --connect-timeout 3 --max-time 30 -o #{archive_path} #{archive_url}`
+`curl --fail --retry 3 --retry-delay 1 --connect-timeout 3 --max-time 30 -o #{archive_path} #{archive_url}`
 `tar -C #{app_root.join("lib", "assets").to_s} -xvf #{archive_path}`
 File.unlink(archive_path)
