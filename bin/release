@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+
+app_root = Pathname.new(ARGV.first)
+archive_url = File.open(app_root.join("BUILD")) {|f| f.readline}
+
+
+puts "      --> Flex assets installed from #{archive_url}"
