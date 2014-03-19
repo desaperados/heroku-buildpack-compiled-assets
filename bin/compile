@@ -37,7 +37,9 @@ env_dir = Pathname.new(ARGV[2])
 ShellHelpers.initialize_env(env_dir)
 archive_domain = ShellHelpers.env("DOMAIN")
 archive_url = "http://static.t4spatial.com.s3.amazonaws.com/flex-builds/#{archive_domain}.tar"
-archive_path = app_root.join("tmp", File.basename(archive_url))
+archive_path = Tempfile.new(File.basename(archive_domain)).path
+
+puts "      --> Retrieving flex assets from #{archive_url}"
 
 `curl --fail --retry 3 --retry-delay 1 --connect-timeout 3 --max-time 30 -o #{archive_path} #{archive_url}`
 `tar -C #{app_root.join("lib", "assets").to_s} -xvf #{archive_path}`
