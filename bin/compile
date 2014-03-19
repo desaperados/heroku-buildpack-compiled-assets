@@ -28,6 +28,7 @@ module ShellHelpers
 end
 
 require 'pathname'
+require 'tempfile'
 
 $stdout.sync = true
 
