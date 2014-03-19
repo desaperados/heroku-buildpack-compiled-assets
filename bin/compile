@@ -3,11 +3,11 @@
 module ShellHelpers
   @@user_env_hash = {}
 
-  def user_env_hash
+  def self.user_env_hash
     @@user_env_hash
   end
 
-  def env(var)
+  def self.env(var)
     ENV[var] || user_env_hash[var]
   end
 
@@ -34,8 +34,8 @@ $stdout.sync = true
 app_root = Pathname.new(ARGV[0])
 env_dir = Pathname.new(ARGV[2])
 
-shell = ShellHelpers.initialize_env(env_dir)
-archive_domain = shell.env("DOMAIN")
+ShellHelpers.initialize_env(env_dir)
+archive_domain = ShellHelpers.env("DOMAIN")
 archive_url = "http://static.t4spatial.com.s3.amazonaws.com/flex-builds/#{archive_domain}.tar"
 archive_path = app_root.join("tmp", File.basename(archive_url))
 
